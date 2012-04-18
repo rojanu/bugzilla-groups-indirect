@@ -1,0 +1,54 @@
+[%# The contents of this file are subject to the Mozilla Public
+  # License Version 1.1 (the "License"); you may not use this file
+  # except in compliance with the License. You may obtain a copy of
+  # the License at http://www.mozilla.org/MPL/
+  #
+  # Software distributed under the License is distributed on an "AS
+  # IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+  # implied. See the License for the specific language governing
+  # rights and limitations under the License.
+  #
+  # The Original Code is the GroupsIndirect Bugzilla Extension.
+  #
+  # The Initial Developer of the Original Code is Ali Ustek
+  # Portions created by the Initial Developer are Copyright (C) 2011 the
+  # Initial Developer. All Rights Reserved.
+  #
+  # Contributor(s):
+  #   Ali Ustek <aliustek@gmail.com>
+  #%]
+
+[%# INTERFACE:
+  # groups: array with group objects having the properties:
+  #   - id: number. The ID of the group.
+  #   - name: string. The name of the group.
+  #   - description: string. The description of the group.
+  #   - userregexp: string. The user regexp for the given group.
+  #   - isactive: boolean int. Specifies if the group is active or not.
+  #   - isbuggroup: boolean int. Specifies if it can be used for bugs.
+  #%]
+
+[% PROCESS global/header.html.tmpl
+  title = "List Indirect Access"
+  subheader = "This lists the groups which are granted access to other groups."
+  doc_section = "groups.html"
+%]
+
+<table border="1">
+    <tbody>
+        <tr>
+            <th>Group</th>
+            <th>has Access to</th>
+        </tr>
+        [% FOREACH group = indirect %]
+        <tr>
+            <td><a href="editgroups.cgi?action=changeform&group=[% group.0 FILTER html %]">[% group.1 FILTER html %]<a></td>
+            <td><a href="editgroups.cgi?action=changeform&group=[% group.2 FILTER html %]">[% group.3 FILTER html %]<a></td>
+        </tr>
+        [% END %]
+    </tbody>
+</table>
+
+<p><a href="editgroups.cgi">Back to Group list</a></p>
+
+[% PROCESS global/footer.html.tmpl %]
